@@ -1,0 +1,1 @@
+.net mvc calling view object in javascript

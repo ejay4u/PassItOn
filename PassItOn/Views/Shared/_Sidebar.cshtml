@@ -1,0 +1,60 @@
+﻿@using PassItOn.Controllers
+<aside class="main-sidebar">
+    <section class="sidebar">
+        @* BEGIN Search *@
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+        @* END Search *@
+        @* BEGIN Menu *@
+        <ul class="sidebar-menu">
+            <li class="header">HEADER</li>
+            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(Dpanel777Controller.Index) ? "active" : "")">
+                <a href="@Url.Action("Index", "Dpanel777")"><i class="fa fa-dashboard"></i> <span>Home</span></a>
+            </li>
+            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(Dpanel777Controller.Business) ? "active" : "")">
+                <a href="@Url.Action("Business", "Dpanel777")"><i class="fa fa-briefcase"></i> <span>Business</span></a>
+            </li>
+            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(Dpanel777Controller.Campaign) ? "active" : "")">
+                <a href="@Url.Action("Campaign", "Dpanel777")"><i class="fa fa-bullhorn"></i> <span>Campaign</span></a>
+            </li>
+            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(Dpanel777Controller.GenerateCodes) ? "active" : "")">
+                <a href="@Url.Action("GenerateCodes", "Dpanel777")"><i class="fa fa-cogs"></i> <span>Generate Codes</span></a>
+            </li>
+            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(Dpanel777Controller.GenerateCards) ? "active" : "")">
+                <a href="@Url.Action("GenerateCards", "Dpanel777")"><i class="fa fa-vcard"></i> <span>Generate Cards</span></a>
+            </li>
+            <li class="treeview @(ViewContext.RouteData.Values["Action"].ToString() == nameof(Dpanel777Controller.GeneralAd) || ViewContext.RouteData.Values["Action"].ToString() == nameof(Dpanel777Controller.CampaignAd) ? "active" : "")">
+                <a href="#">
+                    <i class="fa fa-flash"></i>
+                    <span>Create Ads</span>
+                    @*<span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>*@
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <a href="@Url.Action("GeneralAd", "Dpanel777")"><span>General Advert</span></a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("CampaignAd", "Dpanel777")"><span>Campaign Advert</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(Dpanel777Controller.Passiton) ? "active" : "")">
+                <a href="@Url.Action("Passiton", "Dpanel777")"><i class="fa fa-flag-checkered"></i> <span>Passiton</span></a>
+            </li>
+            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(Dpanel777Controller.CodeFailure) ? "active" : "")">
+                <a href="@Url.Action("CodeFailure", "Dpanel777")"><i class="fa fa-user-times"></i> <span>Code Failure</span></a>
+            </li>
+        </ul>
+        @* END Menu *@
+    </section>
+</aside>

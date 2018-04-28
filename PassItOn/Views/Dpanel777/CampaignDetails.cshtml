@@ -1,0 +1,99 @@
+﻿@model PassItOn.Models.Campaign
+
+@{
+    ViewBag.Title = "CampaignDetails";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<h2>CampaignDetails</h2>
+
+<div>
+    <h4>Campaign</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccountId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CampaignTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CampaignTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CampaignCodeQty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CampaignCodeQty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UsageLimit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsageLimit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CampaignStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CampaignStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CampaignPrize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CampaignPrize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeUpdated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeUpdated)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditCampaign", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Campaign")
+</p>

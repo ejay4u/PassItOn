@@ -1,0 +1,18 @@
+﻿@model PassItOn.ViewModels.CodeViewModel
+@{
+    Layout = null;
+}
+
+@Html.DropDownListFor(m => m.Campaign.AccountId, Model.BusinessList, "Select Business", new { @id = "Business-DropdownID", htmlAttributes = new { @class = "form-control select2", style = "width: 100%" } })
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#Business-DropdownID').change(function () {
+            var selectedBusiness = this.value;
+            console.log(selectedBusiness);
+            $('#CampaignContainer').load('@Url.Action("CodeCampaignListView")?accountid=' + selectedBusiness);
+        });
+    });
+</script>

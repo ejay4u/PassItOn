@@ -1,0 +1,247 @@
+﻿
+@{
+    ViewBag.Title = "Add Country";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+    ViewBag.Description = "Add Country Code";
+}
+
+<div class="row">
+    <div class="col-xs-12 col-md-6">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">Create A New Role</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="box-header">
+                    <h3 class="box-title">Add User To Role(s)</h3>
+                </div>
+                <div class="form-horizontal">
+                    <asp:Label ID="lblUtr" />
+                    <div class="form-group">
+                        <label for="txtUtremail" class="col-lg-2 control-label">Name</label>
+                        <div class="col-lg-10">
+                            <input class="form-control" id="txtUtremail" placeholder="Enter User Email" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txt" class="col-lg-2 control-label">Role(s)</label>
+                        <div class="col-lg-10">
+                            <asp:ListBox class="form-control" SelectionMode="Multiple" ID="lstUtr"></asp:ListBox>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-4">
+                            <button type="reset" class="btn btn-default">Cancel</button>
+                            <asp:button ID="btnUserToRole" type="submit" class="btn btn-primary" Text="Submit" OnClick="btnUserToRole_Click" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-header">
+                    <h3 class="box-title">Remove User From Role(s)</h3>
+                </div>
+                <div class="form-horizontal">
+                    <asp:Label ID="lblUfr" />
+                    <div class="form-group">
+                        <label for="txtUfremail" class="col-lg-2 control-label">Name</label>
+                        <div class="col-lg-10">
+                            <input class="form-control" id="txtUfremail" placeholder="Enter User Email" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txt" class="col-lg-2 control-label">Role(s)</label>
+                        <div class="col-lg-10">
+                            <asp:ListBox class="form-control" SelectionMode="Multiple" ID="lstUfr"></asp:ListBox>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-4">
+                            <button type="reset" class="btn btn-default">Cancel</button>
+                            <asp:button ID="btnUserFromRole" type="submit" class="btn btn-primary" Text="Submit" OnClick="btnUserFromRole_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">Add New User</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <asp:Label ID="lblAddUser" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="txtFirstName" class="control-label">First Name</label>
+                            <input class="form-control" style="width: 100%;" id="txtFirstName" placeholder="First Name" type="text" />
+                            <div id="fnError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtMiddleName" class="control-label">Middle Name</label>
+                            <input class="form-control" style="width: 100%;" id="txtMiddleName" placeholder="Middle Name" type="text" />
+                            <div id="mnError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtLastName" class="control-label">Last Name</label>
+                            <input class="form-control" style="width: 100%;" id="txtLastName" placeholder="Last Name" type="text" />
+                            <div id="lnError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtEmail" class="control-label">Email</label>
+                            <input class="form-control" style="width: 100%;" id="txtEmail" placeholder="Email" type="email" />
+                            <div id="EmailError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtPhoneNumber" class="control-label">Phone Number</label>
+                            <input class="form-control" style="width: 100%;" id="txtPhoneNumber" placeholder="Phone Number" type="tel" />
+                            <div id="phError"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="txtJobTitle" class="control-label">Job Title</label>
+                            <input class="form-control" style="width: 100%;" id="txtJobTitle" placeholder="Job Title" type="text" />
+                            <div id="jtError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lstBranch" class="control-label">Branch</label>
+                            <asp:DropDownList class="form-control" style="width: 100%" ID="lstBranch"></asp:DropDownList>
+                            <div id="brError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lstDepartment" class="control-label">Department</label>
+                            <asp:DropDownList class="form-control" style="width: 100%" ID="lstDepartment"></asp:DropDownList>
+                            <div id="dtlError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lstRole" class="control-label">Role</label>
+                            <asp:DropDownList class="form-control" style="width: 100%" ID="lstRole"></asp:DropDownList>
+                            <div id="rlError"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-4">
+                            <button type="reset" class="btn btn-default">Cancel</button>
+                            <asp:button ID="btnCreateUser" type="submit" class="btn btn-primary" Text="Submit" OnClick="btnCreateUser_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-md-6">
+        <div class="box box-default">
+            <div class="box-header">
+                <h3 class="box-title">Add Leave Type</h3>
+            </div>
+            <div class="box-body">
+                <div class="form-horizontal">
+                    <asp:Label ID="lblMsg" />
+                    <div class="form-group">
+                        <label for="txtLeaveType" class="col-lg-2 control-label">Name</label>
+                        <div class="col-lg-10">
+                            <input class="form-control" id="txtLeaveType" placeholder="Name of Leave" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtLeaveQuota" class="col-lg-2 control-label">Quota</label>
+                        <div class="col-lg-10">
+                            <input class="form-control" id="txtLeaveQuota" type="number" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtLeaveDescription" class="col-lg-2 control-label">Description</label>
+                        <div class="col-lg-10">
+                            <textarea class="form-control" rows="3" id="txtLeaveDescription"></textarea>
+                            <span class="help-block">A short description for the Leave Type.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button type="reset" class="btn btn-default">Cancel</button>
+                            <asp:button type="submit" class="btn btn-primary" Text="Submit" OnClick="AddLeaveType_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+        <div class="box box-default">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Add New Department</h4>
+                        <asp:Label ID="lblAddDpt" />
+                        <div class="form-group">
+                            <label for="lstBranchName" class="control-label">Branch Name</label>
+                            <asp:DropDownList class="form-control" style="width: 100%" ID="lstBranchName"></asp:DropDownList>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtDptName" class="control-label">Dept Name</label>
+                            <input class="form-control" style="width: 100%" id="txtDptName" placeholder="Department Name" type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label for="txtDptEmail" class="control-label">Dept Email</label>
+                            <input class="form-control" style="width: 100%" id="txtDptEmail" placeholder="Department Email" type="email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="lstUsers" class="control-label">Dept Manager</label>
+                            <asp:DropDownList class="form-control" style="width: 100%" ID="lstUsers"></asp:DropDownList>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-2">
+                                <button type="reset" class="btn btn-default">Cancel</button>
+                                <asp:button type="submit" ID="btnAddDept" class="btn btn-primary" Text="Submit" OnClick="btnAddDept_Click" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Add New Branch</h4>
+                        <asp:Label ID="lblAddBranch" />
+                        <div class="form-group">
+                            <label for="txtBranchName" class="control-label">Branch Name</label>
+                            <input class="form-control" style="width: 100%" id="txtBranchName" placeholder="Branch Name" type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label for="txtBranchAddress" class="control-label">Branch Address</label>
+                            <textarea class="form-control" rows="2" id="txtBranchAddress"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtBranchTel" class="control-label">Telephone</label>
+                            <input class="form-control" style="width: 100%" id="txtBranchTel" placeholder="Branch Telephone" type="tel" />
+                        </div>
+                        <div class="form-group">
+                            <label for="txtBranchEmail" class="control-label">Branch Email</label>
+                            <input class="form-control" style="width: 100%" id="txtBranchEmail" placeholder="Branch Email" type="email" />
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-2">
+                                <button type="reset" class="btn btn-default">Cancel</button>
+                                <asp:button type="submit" ID="btnAddBranch" class="btn btn-primary" Text="Submit" OnClick="btnAddBranch_Click" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

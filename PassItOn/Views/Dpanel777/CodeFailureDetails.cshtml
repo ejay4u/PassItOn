@@ -1,0 +1,67 @@
+﻿@model PassItOn.Models.CodeFailure
+
+@{
+    ViewBag.Title = "CodeFailureDetails";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<h2>CodeFailureDetails</h2>
+
+<div>
+    <h4>CodeFailure</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MobileNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MobileNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FailureCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FailureCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SuspendedFor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SuspendedFor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReactivationTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReactivationTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+   @* @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
+    @Html.ActionLink("Back to List", "CodeFailure")
+</p>

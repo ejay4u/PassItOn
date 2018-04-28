@@ -1,0 +1,7 @@
+﻿@model PassItOn.ViewModels.AdViewModel
+@{
+    Layout = null;
+}
+
+
+@Html.DropDownListFor(m => m.AdInfo.AdCountry, Model.CountryList, "Select Country", new { @id = "Country-DropdownID", htmlAttributes = new { @class = "form-control select2", style = "width: 100%" } })

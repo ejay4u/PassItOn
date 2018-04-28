@@ -1,0 +1,67 @@
+﻿@model PassItOn.Models.CodeCard
+
+@{
+    ViewBag.Title = "GenerateCardsDetails";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<h2>GenerateCardsDetails</h2>
+
+<div>
+    <h4>CodeCard</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CampaignId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CampaignId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeUpdated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeUpdated)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
+    @Html.ActionLink("Back to List", "GenerateCards")
+</p>

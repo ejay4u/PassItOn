@@ -1,0 +1,68 @@
+﻿@model PassItOn.ViewModels.PassItOnViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>About</title>
+</head>
+<body>
+    @foreach (var item in Model.PassItAds)
+    {
+        if (item.AdType.Equals("Background-Image"))
+        {
+            
+        }
+        <div data-marker="@Json.Encode(item)"></div>
+    }
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PassAd.AdType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PassAd.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PassAd.VideoUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PassAd.VideoHost)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.PassItAds)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageUrl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VideoUrl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VideoHost)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+</html>

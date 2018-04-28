@@ -1,0 +1,396 @@
+﻿@model PassItOn.ViewModels.AdViewModel
+
+@{
+    ViewBag.Title = "Add An Advert";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+    ViewBag.Description = "Create A Campaign Advert";
+}
+
+
+@using (Html.BeginForm("CampaignAd", "Dpanel777", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Create A New Advert</h3>
+
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+
+            <div class="form-horizontal">
+                <asp:Label ID="lblUtr" />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AdInfo.AdCountry, new { @class = "control-label col-lg-2" })
+                    <div class="col-lg-10">
+                        <div id="CountryContainer">
+                            @Html.Action("CountryListView")
+                        </div>
+                        @Html.ValidationMessageFor(model => model.AdInfo.AdCountry, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Campaign</label>
+                    <div class="col-lg-10">
+                        <div id="CampaignContainer">
+                            @Html.Action("CampaignListView")
+                        </div>
+                        @Html.ValidationMessageFor(model => model.AdInfo.CampaignId, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AdInfo.AdType, htmlAttributes: new {@class = "control-label col-md-2"})
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(m => m.AdInfo.AdType, Model.AddTypeList, "Select Add Type", new {@Id = "AdType", htmlAttributes = new {@class = "form-control select2", style = "width: 100%"}})
+                        @Html.ValidationMessageFor(model => model.AdInfo.AdType, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                @if (Model.AdInfo != null)
+                {
+                    if (Model.AdInfo.AdType.Equals("PhoneNo-Image"))
+                    {
+                        <div class="form-group" id="imageUrl">
+                            @Html.LabelFor(model => model.ImageUrl, new {@class = "control-label col-lg-2"})
+                            <div class="col-lg-10">
+                                @Html.EditorFor(model => model.ImageUrl, new {htmlAttributes = new {type = "file"}})
+                                <p class="help-block">Formats: jpeg, jpg and png</p>
+                                @Html.ValidationMessageFor(model => model.ImageUrl, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group" id="imageUrl" hidden>
+                            @Html.LabelFor(model => model.ImageUrl, new {@class = "control-label col-lg-2"})
+                            <div class="col-lg-10">
+                                @Html.EditorFor(model => model.ImageUrl, new {htmlAttributes = new {type = "file"}})
+                                <p class="help-block">Formats: jpeg, jpg and png</p>
+                                @Html.ValidationMessageFor(model => model.ImageUrl, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+                    }
+
+                    if (Model.AdInfo.AdType.Equals("PhoneNo-Video"))
+                    {
+                        <div class="form-group" id="videoUrl">
+                            @Html.LabelFor(model => model.VideoUrl, new {@class = "control-label col-lg-2"})
+                            <div class="col-lg-10">
+                                @Html.EditorFor(model => model.VideoUrl, new {htmlAttributes = new {@class = "form-control"}})
+                                @Html.ValidationMessageFor(model => model.VideoUrl, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+                        <div class="form-group" id="videoHost">
+                            @Html.LabelFor(model => model.VideoHost, htmlAttributes: new {@class = "control-label col-md-2"})
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(m => m.VideoHost, Model.VideoHostList, "Select Video Host", new {htmlAttributes = new {@class = "form-control select2", style = "width: 100%"}})
+                                @Html.ValidationMessageFor(model => model.VideoHost, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group" id="videoUrl" hidden>
+                            @Html.LabelFor(model => model.VideoUrl, new {@class = "control-label col-lg-2"})
+                            <div class="col-lg-10">
+                                @Html.EditorFor(model => model.VideoUrl, new {htmlAttributes = new {@class = "form-control"}})
+                                @Html.ValidationMessageFor(model => model.VideoUrl, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+                        <div class="form-group" id="videoHost" hidden>
+                            @Html.LabelFor(model => model.VideoHost, htmlAttributes: new {@class = "control-label col-md-2"})
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(m => m.VideoHost, Model.VideoHostList, "Select Video Host", new {htmlAttributes = new {@class = "form-control select2", style = "width: 100%"}})
+                                @Html.ValidationMessageFor(model => model.VideoHost, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="form-group" id="imageUrl" hidden>
+                        @Html.LabelFor(model => model.ImageUrl, new {@class = "control-label col-lg-2"})
+                        <div class="col-lg-10">
+                            @Html.EditorFor(model => model.ImageUrl, new {htmlAttributes = new {type = "file"}})
+                            <p class="help-block">Formats: jpeg, jpg and png</p>
+                            @Html.ValidationMessageFor(model => model.ImageUrl, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+                    <div class="form-group" id="videoUrl" hidden>
+                        @Html.LabelFor(model => model.VideoUrl, new { @class = "control-label col-lg-2" })
+                        <div class="col-lg-10">
+                            @Html.EditorFor(model => model.VideoUrl, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.VideoUrl, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                        <div class="form-group" id="videoHost" hidden>
+                            @Html.LabelFor(model => model.VideoHost, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(m => m.VideoHost, Model.VideoHostList, "Select Video Host", new { htmlAttributes = new { @class = "form-control select2", style = "width: 100%" } })
+                                @Html.ValidationMessageFor(model => model.VideoHost, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                }
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AdInfo.AdStatus, new {@class = "control-label col-lg-2"})
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.AdInfo.AdStatus, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.AdInfo.AdStatus, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.AdInfo.CampaignId)
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-4">
+                        <button type="reset" class="btn btn-default">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Campaign Ads</h3>
+                <div class="box-tools">
+                    <b class="label label-danger" style="padding: 8.5px">Click to Show or Hide Column:</b>
+                    <div class="btn-group btn-group-sm">
+                        <a class="showHide btn btn-primary" data-column="0">Id</a>
+                        <a class="showHide btn btn-primary" data-column="1">CampaignId</a>
+                        <a class="showHide btn btn-primary" data-column="2">AdCountry</a>
+                        <a class="showHide btn btn-primary" data-column="3">AdType</a>
+                        <a class="showHide btn btn-primary" data-column="4">AdStatus</a>
+                        <a class="showHide btn btn-primary" data-column="5">CreatedBy</a>
+                        <a class="showHide btn btn-primary" data-column="6">TimeCreated</a>
+                        <a class="showHide btn btn-primary" data-column="7">UpdatedBy</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <table id="CampAdTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                CampaignId
+                            </th>
+                            <th>
+                                AdCountry
+                            </th>
+                            <th>
+                                AdType
+                            </th>
+                            <th>
+                                AdStatus
+                            </th>
+                            <th>
+                                CreatedBy
+                            </th>
+                            <th>
+                                TimeCreated
+                            </th>
+                            <th>
+                                UpdatedBy
+                            </th>
+                            <th>
+                                TimeUpdated
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                CampaignId
+                            </th>
+                            <th>
+                                AdCountry
+                            </th>
+                            <th>
+                                AdType
+                            </th>
+                            <th>
+                                AdStatus
+                            </th>
+                            <th>
+                                CreatedBy
+                            </th>
+                            <th>
+                                TimeCreated
+                            </th>
+                            <th>
+                                UpdatedBy
+                            </th>
+                            <th>
+                                TimeUpdated
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function() {
+            // Populate State/Provinces
+            $('#Country-DropdownID').change(function() {
+                var selectedCountry = this.value;
+                console.log(selectedCountry);
+                $('#CampaignContainer').load('@Url.Action("CampaignListView")?country=' + selectedCountry);
+            });
+
+            $("#AdType").change(function () {
+                var leaveId = $(this).find("option:selected").val();
+                var result = $(this).find("option:selected").text();
+                switch (result) {
+                    case "PhoneNo-Image":
+                        $("#imageUrl").show();
+                        $("#videoUrl").hide();
+                        $("#videoHost").hide();
+                        break;
+                    case "PhoneNo-Video":
+                        $("#imageUrl").hide();
+                        $("#videoUrl").show();
+                        $("#videoHost").show();
+                        break;
+
+                    default:
+                        $("#imageUrl").hide();
+                        $("#videoUrl").hide();
+                        $("#videoHost").hide();
+                }
+            });
+
+            $("#CampAdTable").dataTable({
+                ajax: {
+                    url: "/api/campad",
+                    dataSrc: ""
+                },
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ],
+                columns: [
+                    {
+                        data: "Id"
+                    },
+                    {
+                        data: "CampaignId"
+                    },
+                    {
+                        data: "AdCountry"
+                    },
+                    {
+                        data: "AdType"
+                    },
+                    {
+                        data: "AdStatus"
+                    },
+                    {
+                        data: "CreatedBy"
+                    },
+                    {
+                        data: "TimeCreated",
+                        render: function (data, type, campAd) {
+                            return new Date(campAd.TimeCreated).toDateString();
+                        }
+                    },
+                    {
+                        data: "UpdatedBy"
+                    },
+                    {
+                        data: "TimeUpdated",
+                        render: function (data, type, campAd) {
+                            return new Date(campAd.TimeUpdated).toDateString();
+                        }
+                    },
+                    {
+                        data: "Id",
+                        render: function (data, type, campAd) {
+                            return "<a title='Edit' class='btn btn-sm btn-primary' href='/dpanel777/editcampaignad/" +
+                                campAd.Id + "'><i class='fa fa-pencil-square fa-lg' aria-hidden='true'></i></a>" + " | " +
+                                "<a title='Delete' href='#' data-id=" + campAd.Id + " class='js-delete btn btn-sm btn-danger'><i class='fa fa-trash fa-lg' aria-hidden='true'></i></a>";
+                        }
+                    }
+                ]
+            });
+
+            $('#CampAdTable tfoot th').each(function () {
+                var placeHolderTitle = $('#CampAdTable thead th').eq($(this).index()).text();
+                $(this).html('<input type="text" class="form-control input input-sm" placeholder = "Search ' + placeHolderTitle + '" />');
+
+                initSearch();
+            });
+
+            function initSearch() {
+                $('#CampAdTable').dataTable().api().columns().every(function () {
+                    var column = this;
+                    $(this.footer()).find('input').on('keyup change', function () {
+                        column.search(this.value).draw();
+                    });
+                });
+            }
+
+            $('a.showHide').on("click", function (e) {
+                e.preventDefault();
+                // Get the column API object
+                var column = $('#CampAdTable').dataTable().api().column($(this).attr('data-column'));
+                // Toggle the visibility
+                column.visible(!column.visible());
+
+            });
+
+            $('#CampAdTable tbody').on("click", 'a.js-delete', function () {
+                var anchor = $(this);
+                bootbox.confirm("Are you sure you want to delete this campaign and all its data?", function (result) {
+                    if (result) {
+                        var dialog = bootbox.dialog({
+                            message: '<p class="text-center"><i class="fa fa-refresh fa-spin"></i> Processing request...</p>',
+                            closeButton: false
+                        });
+                        $.ajax({
+                            url: "/api/campad/" + anchor.attr("data-id"),
+                            method: "DELETE",
+                            success: function () {
+                                //console.log("success);
+                                dialog.modal('hide'); //close the custom dialog
+                                $('#CampAdTable').dataTable().api().row(anchor.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+
+        });
+    </script>
+}

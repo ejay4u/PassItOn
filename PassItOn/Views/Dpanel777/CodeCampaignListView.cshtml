@@ -1,0 +1,6 @@
+﻿@model PassItOn.ViewModels.CodeViewModel
+@{
+    Layout = null;
+}
+
+@Html.DropDownListFor(m => m.CampaignCode.CampaignId, Model.CampaignList, "Select Campaign", new { htmlAttributes = new { @class = "form-control select2", style = "width: 100%" } })

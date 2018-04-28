@@ -1,0 +1,303 @@
+﻿@model PassItOn.ViewModels.CodeViewModel
+
+@{
+    ViewBag.Title = "Generate Codes";
+    ViewBag.Description = "Generate Campaign Codes";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Generate Campaign Codes</h3>
+
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+
+            <div class="form-horizontal">
+                <asp:Label ID="lblUtr"/>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Campaign.CampaignCountry, new {@class = "control-label col-lg-2"})
+                    <div class="col-lg-10">
+                        @Html.DropDownListFor(model => model.Campaign.CampaignCountry, Model.CountryList, "Select Country", new { @id = "Country-DropdownID", htmlAttributes = new {@class = "form-control select2", @style = "width: 100%"}})
+                        @Html.ValidationMessageFor(model => model.Campaign.CampaignCountry, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Business</label>
+                    <div class="col-lg-10">
+                        <div id="BusinessContainer">
+                            @Html.Action("BusinessListView")
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Campaign.AccountId, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Campaign</label>
+                    <div class="col-lg-10">
+                        <div id="CampaignContainer">
+                            @Html.Action("CodeCampaignListView")
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CampaignCode.CampaignId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    <label for="txtUtremail" class="col-lg-2 control-label">Campaign Name</label>
+                    <div class="col-lg-10">
+                        @Html.DropDownListFor(m => m.CampaignCode.CampaignId, Model.CampaignTitle, "Select Campaign", new { htmlAttributes = new { @class = "form-control select2", style = "width: 100%" } })
+                        @Html.ValidationMessageFor(model => model.CampaignCode.CampaignId, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.Campaign.CampaignTitle, new { @class = "control-label col-lg-2" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Campaign.CampaignTitle, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Campaign.CampaignTitle, "", new { @class = "text-danger" })
+                    </div>
+                </div>          
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Campaign.CampaignNetwork, new { @class = "control-label col-lg-2" })
+                    <div class="col-lg-10">
+                        @Html.ListBoxFor(model => model.SelectedCampaignNetwork, Model.CampaignNetwork, new { htmlAttributes = new { @class = "form-control select2", @style = "width: 100%" } })
+                        @Html.ValidationMessageFor(model => model.Campaign.CampaignNetwork, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Campaign.CampaignCodeQty, new { @class = "control-label col-lg-2" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Campaign.CampaignCodeQty, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Campaign.CampaignCodeQty, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.Campaign.UsageLimit, new { @class = "control-label col-lg-2" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Campaign.UsageLimit, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Campaign.UsageLimit, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Campaign.CampaignStatus, new { @class = "control-label col-lg-2" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Campaign.CampaignStatus, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Campaign.CampaignStatus, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-4">
+                        <button type="reset" class="btn btn-default">Cancel</button>
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Campaign Codes</h3>
+                <div class="box-tools">
+                    <b class="label label-danger" style="padding: 8.5px">Click to Show or Hide Column:</b>
+                    <div class="btn-group btn-group-sm">
+                        <a class="showHide btn btn-primary" data-column="0">CampaignId</a>
+                        <a class="showHide btn btn-primary" data-column="1">Code</a>
+                        <a class="showHide btn btn-primary" data-column="2">Usage</a>
+                        <a class="showHide btn btn-primary" data-column="3">CodeStatus</a>
+                        <a class="showHide btn btn-primary" data-column="4">CreatedBy</a>
+                        <a class="showHide btn btn-primary" data-column="5">TimeCreated</a>
+                        <a class="showHide btn btn-primary" data-column="6">TimeUpdated</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <table id="CodeTable" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            CampaignId
+                        </th>
+                        <th>
+                            Code
+                        </th>
+                        <th>
+                            Usage
+                        </th>
+                        <th>
+                            CodeStatus
+                        </th>
+                        <th>
+                            CreatedBy
+                        </th>
+                        <th>
+                            TimeCreated
+                        </th>
+                        <th>
+                            TimeUpdated
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th>
+                                CampaignId
+                            </th>
+                            <th>
+                                Code
+                            </th>
+                            <th>
+                                Usage
+                            </th>
+                            <th>
+                                CodeStatus
+                            </th>
+                            <th>
+                                CreatedBy
+                            </th>
+                            <th>
+                                TimeCreated
+                            </th>
+                            <th>
+                                TimeUpdated
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            $("#CodeTable").dataTable({
+                ajax: {
+                    url: "/api/campaigncodes",
+                    dataSrc: ""
+                },
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ],
+                columns: [
+                    {
+                        data: "CampaignId"
+                    },
+                    {
+                        data: "Code"
+                    },
+                    {
+                        data: "Usage"
+                    },
+                    {
+                        data: "CodeStatus"
+                    },
+                    {
+                        data: "CreatedBy"
+                    },
+                    {
+                        data: "TimeCreated",
+                        render: function(data, type, campaignCode) {
+                            return new Date(campaignCode.TimeCreated).toDateString();
+                        }
+                    },
+                    {
+                        data: "TimeUpdated",
+                        render: function(data, type, campaignCode) {
+                            return new Date(campaignCode.TimeUpdated).toDateString();
+                        }
+                    },
+                    {
+                        data: "Id",
+                        render: function (data, type, campaignCode) {
+                            return "<a title='Delete' href='#' data-id=" + campaignCode.Id + " class='js-delete btn btn-sm btn-danger'><i class='fa fa-trash fa-lg' aria-hidden='true'></i></a>";
+                        }
+                    }
+                ]
+            });
+
+            $('#CodeTable tfoot th').each(function () {
+                var placeHolderTitle = $('#CodeTable thead th').eq($(this).index()).text();
+                $(this).html('<input type="text" class="form-control input input-sm" placeholder = "Search ' + placeHolderTitle + '" />');
+
+                initSearch();
+            });
+
+            function initSearch() {
+                $('#CodeTable').dataTable().api().columns().every(function () {
+                    var column = this;
+                    $(this.footer()).find('input').on('keyup change', function () {
+                        column.search(this.value).draw();
+                    });
+                });
+            }
+
+            $('a.showHide').on("click", function (e) {
+                e.preventDefault();
+                // Get the column API object
+                var column = $('#CodeTable').dataTable().api().column($(this).attr('data-column'));
+                // Toggle the visibility
+                column.visible(!column.visible());
+            });
+
+            // Populate State/Provinces
+            $('#Country-DropdownID').change(function () {
+                var selectedCountry = this.value;
+                console.log(selectedCountry);
+                $('#BusinessContainer').load('@Url.Action("BusinessListView")?country=' + selectedCountry);
+            });
+
+            $('#CodeTable tbody').on("click", 'a.js-delete', function () {
+                var anchor = $(this);
+                bootbox.confirm("Are you sure you want to delete this campaign and all its data?", function (result) {
+                    if (result) {
+                        var dialog = bootbox.dialog({
+                            message: '<p class="text-center"><i class="fa fa-refresh fa-spin"></i> Processing request...</p>',
+                            closeButton: false
+                        });
+                        $.ajax({
+                            url: "/api/campaigncodes/" + anchor.attr("data-id"),
+                            method: "DELETE",
+                            success: function () {
+                                //console.log("success);
+                                dialog.modal('hide'); //close the custom dialog
+                                $('#CodeTable').dataTable().api().row(anchor.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                });
+            });
+
+        });
+
+    </script>
+}

@@ -1,0 +1,222 @@
+﻿
+@{
+    ViewBag.Title = "Successful Passitions";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+    ViewBag.Description = "All Successful Passitions";
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Passitons</h3>
+                <div class="box-tools">
+                    <b class="label label-danger" style="padding: 8.5px">Click to Show or Hide Column:</b>
+                    <div class="btn-group btn-group-sm">
+                        <a class="showHide btn btn-primary" data-column="0">Id</a>
+                        <a class="showHide btn btn-primary" data-column="1">CampaignId</a>
+                        <a class="showHide btn btn-primary" data-column="2">MobileNo</a>
+                        <a class="showHide btn btn-primary" data-column="3">RecipientName</a>
+                        <a class="showHide btn btn-primary" data-column="4">ServiceCode</a>
+                        <a class="showHide btn btn-primary" data-column="5">Amount</a>
+                        <a class="showHide btn btn-primary" data-column="6">Reference</a>
+                        <a class="showHide btn btn-primary" data-column="7">Message</a>
+                        <a class="showHide btn btn-primary" data-column="8">Status</a>
+                        <a class="showHide btn btn-primary" data-column="9">TimeCreated</a>
+                        <a class="showHide btn btn-primary" data-column="10">TimeUpdated</a>
+                        <a class="showHide btn btn-primary" data-column="11">Action</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <table id="PassitonTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                CampaignId
+                            </th>
+                            <th>
+                                MobileNo
+                            </th>
+                            <th>
+                                RecipientName
+                            </th>
+                            <th>
+                                ServiceCode
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                            <th>
+                                Reference
+                            </th>
+                            <th>
+                                Message
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                TimeCreated
+                            </th>
+                            <th>
+                                TimeUpdated
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                CampaignId
+                            </th>
+                            <th>
+                                MobileNo
+                            </th>
+                            <th>
+                                RecipientName
+                            </th>
+                            <th>
+                                ServiceCode
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                            <th>
+                                Reference
+                            </th>
+                            <th>
+                                Message
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                TimeCreated
+                            </th>
+                            <th>
+                                TimeUpdated
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            
+            $("#PassitonTable").dataTable({
+                ajax: {
+                    url: "/api/passiton",
+                    dataSrc: ""
+                },
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ], 
+                columns: [
+                    {
+                        data: "Id"
+                    },
+                    {
+                        data: "CampaignId"
+                    },
+                    {
+                        data: "MobileNo"
+                    },
+                    {
+                        data: "RecipientName"
+                    },
+                    {
+                        data: "ServiceCode"
+                    },
+                    {
+                        data: "Amount"
+                    },
+                    {
+                        data: "Reference"
+                    },
+                    {
+                        data: "Message"
+                    },
+                    {
+                        data: "Status"
+                    },
+                    {
+                        data: "TimeCreated",
+                        render: function (data, type, passiton) {
+                            return new Date(passiton.TimeCreated).toDateString();
+                        }
+                    },
+                    {
+                        data: "TimeUpdated",
+                        render: function (data, type, passiton) {
+                            return new Date(passiton.TimeUpdated).toDateString();
+                        }
+                    },
+                    {
+                        data: "Id",
+                        render: function (data, type, passiton) {
+                            return "<a title='Details' class='btn btn-sm btn-info' href='/dashboard/passitondetails/" +
+                                passiton.Id + "'><i class='fa fa-pencil-square fa-lg' aria-hidden='true'></i></a>";
+                        }
+                    }
+                ]
+            });
+
+            $('#PassitonTable tfoot th').each(function () {
+                var placeHolderTitle = $('#PassitonTable thead th').eq($(this).index()).text();
+                $(this).html('<input type="text" class="form-control input input-sm" placeholder = "Search ' + placeHolderTitle + '" />');
+
+                initSearch();
+            });
+
+            function initSearch() {
+                $('#PassitonTable').dataTable().api().columns().every(function () {
+                    var column = this;
+                    $(this.footer()).find('input').on('keyup change', function () {
+                        column.search(this.value).draw();
+                    });
+                });
+            }
+
+            $('a.showHide').on('click', function (e) {
+                e.preventDefault();
+
+                // Get the column API object
+                var column = $('#PassitonTable').dataTable().api().column($(this).attr('data-column'));
+
+                // Toggle the visibility
+                column.visible(!column.visible());
+
+            });
+        });
+    </script>
+}
