@@ -15,7 +15,7 @@ namespace PassItOn.Controllers
     [AllowAnonymous]
     public class HomeController : Controller
     {
-        MongoContext _dbContext;
+        readonly MongoContext _dbContext;
         public HomeController()
         {
             _dbContext = new MongoContext();
